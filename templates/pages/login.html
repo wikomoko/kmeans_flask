@@ -1,0 +1,38 @@
+{% include 'layouts/header.html' %}
+<div class="loginbg">
+    <div class="container pt-5 vh-100">
+        <div class="row pt-5">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4 pt-5">
+                <div class="card">
+                    <div class="card-body p-5">
+                        <h5 class="card-title text-center">Silahkan Login</h5>
+                        <hr />
+                        <form method="POST" action="{{ url_for('login') }}">
+                            {% if pesan %}
+
+                            <div class="alert alert-danger" role="alert">
+                                {{ pesan }}
+                            </div>
+                            {% endif %}
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Nama Pengguna</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" name="username"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Kata Sandi</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                                    required>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary col-12">Masuk</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'layouts/footer.html' %}

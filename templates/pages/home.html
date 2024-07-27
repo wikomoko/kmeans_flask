@@ -1,0 +1,141 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid card mt-3 p-4">
+        <h3 class="">Input Data CSV</h3>
+        <p>Silahkan input data CSV pada form berikut</p>
+        <hr>
+        {% if pesan %}
+        {% if status == true %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ pesan }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% else %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ pesan }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% endif %}
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input class="form-control" type="file" id="formFile" name="file" required>
+                <small class="text-danger">hanya mendukung tipe .csv</small>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+
+        {% if data %}
+        <div class="accordion mt-4" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseTwo">
+                        Kumpulan Data
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <div class="table-responsive mt-5">
+                            <table class="table">
+                                <thead class="table-dark">
+                                    <tr class="">
+                                        <th scope="col">SINTAID</th>
+                                        <th scope="col">NIDN</th>
+                                        <th scope="col">NAMA</th>
+                                        <th scope="col">AFILIASI</th>
+                                        <th scope="col">PRODI</th>
+                                        <th scope="col">PENDIDIKAN TERAKHIR</th>
+                                        <th scope="col">JABATAN FUNGSIONAL</th>
+                                        <th scope="col">GELAR DEPAN</th>
+                                        <th scope="col">GELAR BELAKANG</th>
+                                        <th scope="col">SINTA SCORE OVERALL (Versi 2)</th>
+                                        <th scope="col">SINTA SCORE 3Yr (Versi 2)</th>
+                                        <th scope="col">SINTA SCORE OVERALL (Versi 3)</th>
+                                        <th scope="col">SINTA SCORE 3Yr (Versi 3)</th>
+                                        <th scope="col">AFILIASI SCORE OVERALL (Versi 3)</th>
+                                        <th scope="col">AFILIASI SCORE 3Yr (Versi 3)</th>
+                                        <th scope="col">DOKUMEN SCOPUS</th>
+                                        <th scope="col">SITASI SCOPUS</th>
+                                        <th scope="col">DOKUMEN TERSITASI SCOPUS</th>
+                                        <th scope="col">H-Index SCOPUS</th>
+                                        <th scope="col">G-Index SCOPUS</th>
+                                        <th scope="col">i10-Index SCOPUS</th>
+                                        <th scope="col">DOKUMEN GS</th>
+                                        <th scope="col">SITASI GS</th>
+                                        <th scope="col">DOKUMEN TERSITASI GS</th>
+                                        <th scope="col">H-Index GS</th>
+                                        <th scope="col">G-Index GS</th>
+                                        <th scope="col">i10-Index GS</th>
+                                        <th scope="col">DOKUMEN WOS</th>
+                                        <th scope="col">SITASI WOS</th>
+                                        <th scope="col">DOKUMEN TERSITASI WOS</th>
+                                        <th scope="col">H-Index WOS</th>
+                                        <th scope="col">G-Index WOS</th>
+                                        <th scope="col">i10-Index WOS</th>
+                                        <th scope="col">DOKUMEN GARUDA</th>
+                                        <th scope="col">SITASI GARUDA</th>
+                                        <th scope="col">DOKUMEN TERSITASI GARUDA</th>
+                                        <th scope="col">STATUS AKTIF</th>
+                                        <th scope="col">STATUS VERIFIKASI</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for hasil in data %}
+                                    <tr>
+                                        <td scope="col">{{hasil['sintaid']}}</td>
+                                        <td scope="col">{{hasil['nidn']}}</td>
+                                        <td scope="col">{{hasil['nama']}}</td>
+                                        <td scope="col">{{hasil['afiliasi']}}</td>
+                                        <td scope="col">{{hasil['prodi']}}</td>
+                                        <td scope="col">{{hasil['pendidikan']}}</td>
+                                        <td scope="col">{{hasil['jabatan']}}</td>
+                                        <td scope="col">{{hasil['gelar_depan']}}</td>
+                                        <td scope="col">{{hasil['gelar_belakang']}}</td>
+                                        <td scope="col">{{hasil['sinta_overall_v2']}}</td>
+                                        <td scope="col">{{hasil['sinta_3y_v2']}}</td>
+                                        <td scope="col">{{hasil['sinta_overall_v3']}}</td>
+                                        <td scope="col">{{hasil['sinta_3y_v3']}}</td>
+                                        <td scope="col">{{hasil['afiliasi_overall']}}</td>
+                                        <td scope="col">{{hasil['afiliasi_3y']}}</td>
+                                        <td scope="col">{{hasil['dok_scopus']}}</td>
+                                        <td scope="col">{{hasil['sit_scopus']}}</td>
+                                        <td scope="col">{{hasil['dok_sit_scopus']}}</td>
+                                        <td scope="col">{{hasil['h_i_scopus']}}</td>
+                                        <td scope="col">{{hasil['g_i_scopus']}}</td>
+                                        <td scope="col">{{hasil['i10_i_scopus']}}</td>
+                                        <td scope="col">{{hasil['dok_gs']}}</td>
+                                        <td scope="col">{{hasil['sit_gs']}}</td>
+                                        <td scope="col">{{hasil['dok_sit_gs']}}</td>
+                                        <td scope="col">{{hasil['h_i_gs']}}</td>
+                                        <td scope="col">{{hasil['g_i_gs']}}</td>
+                                        <td scope="col">{{hasil['i10_i_gs']}}</td>
+                                        <td scope="col">{{hasil['dok_wos']}}</td>
+                                        <td scope="col">{{hasil['sit_wos']}}</td>
+                                        <td scope="col">{{hasil['dok_sit_wos']}}</td>
+                                        <td scope="col">{{hasil['h_i_wos']}}</td>
+                                        <td scope="col">{{hasil['g_i_wos']}}</td>
+                                        <td scope="col">{{hasil['i10_i_wos']}}</td>
+                                        <td scope="col">{{hasil['dok_garuda']}}</td>
+                                        <td scope="col">{{hasil['sit_garuda']}}</td>
+                                        <td scope="col">{{hasil['dok_sit_garuda']}}</td>
+                                        <td scope="col">{{hasil['stat_aktif']}}</td>
+                                        <td scope="col">{{hasil['stat_verif']}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

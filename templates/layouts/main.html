@@ -1,0 +1,17 @@
+{% include 'layouts/header.html' %}
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        {% include 'layouts/sidebar.html' %}
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+                {% include 'layouts/navbar.html' %}
+            <!-- End of Top navigation -->
+            <!-- Page content-->
+                {% block content %}{% endblock %}
+              <!-- End of Page content-->
+              {% block js %}{% endblock %}
+        </div>
+    </div>
+{% include 'layouts/footer.html' %}

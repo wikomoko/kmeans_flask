@@ -1,0 +1,86 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid card mt-3 p-4">
+        <h3 class="">Tentang Aplikasi</h3>
+        <p>
+            Aplikasi ini merupakan aplikasi sederhana yang bertujuan untuk mengelompokan Dosen berdasarkan kinerja
+            publikasi yang dilakukan. Metode yang digunakan dalam kalkulasi / pengukuran ini adalah K-Means Clustering.
+        </p>
+        <hr>
+        <h5>Teknologi yang digunakan</h5>
+        <div class="container table-responsive mt-5">
+            <table class="table table-bordered">
+                <thead >
+                    <tr class="text-center">
+                        <th scope="col">Teknologi</th>
+                        <th scope="col">Keterangan</th>
+                        <th scope="col">Versi</th>
+                        <th scope="col">Fungsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Flask</td>
+                        <td>Framework Python</td>
+                        <td>9</td>
+                        <td>
+                            Mempermudah pengembagan aplikasi
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bootstrap</td>
+                        <td>Framework HtmL + CSS</td>
+                        <td>5.3.0</td>
+                        <td>
+                            Mempermudah pembutan UI
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XAMPP</td>
+                        <td>Php & MariaDB Bundler</td>
+                        <td>3.3.0</td>
+                        <td>
+                            Mempermudah pengaturan lingkungan pengembangan karena sudah lengkap dengan Php dan MariaDB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>VS Code</td>
+                        <td>Code Editor</td>
+                        <td>1.77.3</td>
+                        <td>
+                            Mempermudah penulisan maupun penyuntingan Kode Sumber Aplikasi
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <h5>Biodata Pembuat</h5>
+        <div class="container table-responsive mt-5">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Nama Lengkap</th>
+                        <td>Widi Yatmoko</td>
+                    </tr>
+                    <tr>
+                        <th>NIM</th>
+                        <td>1911500583</td>
+                    </tr>
+                    <tr>
+                        <th>ProgramStudi</td>
+                        <td>Teknik Informatika</td>
+                        
+                    </tr>
+                    <tr>
+                        <th>Peminatan</td>
+                        <td>Programming</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid card mt-3 p-4">
+        <h3 class="">Klaster & Iterasi</h3>
+        <p>
+            Menentukan Klaster dan maksimal Iterasi
+        </p>
+        <hr>
+        {% if pesan %}
+        <div class="alert alert-success" role="alert">
+            {{ pesan }}
+        </div>
+        {% endif %}
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="klaster" class="form-label">Masukan jumlah Klaster</label>
+                <input type="number" class="form-control" name="klaster" id="klaster" required>
+            </div>
+            <div class="mb-3">
+                <label for="iterasi" class="form-label">Masukan maksimal Iterasi</label>
+                <input type="number" class="form-control" name="iterasi" id="iterasi" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            <div class="mb-3 mt-3">
+                <h5>Parameter Opsional</h5>
+                <small class="text-danger">Defaultnya semuda digunakan, dan jika pilih harap MINIMAL 2 attribut</small>
+                <div class="table-responsive">
+                    <table class="table  table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input name="sinta_overall_v2" class="form-check-input" type="checkbox" value="sinta_overall_v2" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SINTA SCORE OVERALL (Versi 2)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="sinta_3y_v2" class="form-check-input" type="checkbox" value="sinta_3y_v2" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SINTA SCORE 3Yr (Versi 2)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="sinta_overall_v3" class="form-check-input" type="checkbox" value="sinta_overall_v3" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SINTA SCORE OVERALL (Versi 3)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="sinta_3y_v3" class="form-check-input" type="checkbox" value="sinta_3y_v3" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SINTA SCORE 3Yr (Versi 3)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="afiliasi_overall" class="form-check-input" type="checkbox" value="afiliasi_overall" id="flexCheckChecked" checked>
+                                </td>
+                                <td>AFILIASI SCORE OVERALL (Versi 3)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="afiliasi_3y" class="form-check-input" type="checkbox" value="afiliasi_3y" id="flexCheckChecked" checked>
+                                </td>
+                                <td>AFILIASI SCORE 3Yr (Versi 3)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="dok_scopus" class="form-check-input" type="checkbox" value="dok_scopus" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN SCOPUS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="sit_scopus" class="form-check-input" type="checkbox" value="sit_scopus" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SITASI SCOPUS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="dok_sit_scopus" class="form-check-input" type="checkbox" value="dok_sit_scopus" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN TERSITASI SCOPUS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="h_i_scopus" class="form-check-input" type="checkbox" value="h_i_scopus" id="flexCheckChecked" checked>
+                                </td>
+                                <td>H-Index SCOPUS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="g_i_scopus" class="form-check-input" type="checkbox" value="g_i_scopus" id="flexCheckChecked" checked>
+                                </td>
+                                <td>G-Index SCOPUS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="i10_i_scopus" class="form-check-input" type="checkbox" value="i10_i_scopus" id="flexCheckChecked" checked>
+                                </td>
+                                <td>i10-Index SCOPUS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="dok_gs" class="form-check-input" type="checkbox" value="dok_gs" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN GS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="sit_gs" class="form-check-input" type="checkbox" value="sit_gs" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SITASI GS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="dok_sit_gs" class="form-check-input" type="checkbox" value="dok_sit_gs" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN TERSITASI GS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input  name="h_i_gs" class="form-check-input" type="checkbox" value="h_i_gs" id="flexCheckChecked" checked>
+                                </td>
+                                <td>H-Index GS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input  name="g_i_gs" class="form-check-input" type="checkbox" value="g_i_gs" id="flexCheckChecked" checked>
+                                </td>
+                                <td>G-Index GS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="i10_i_gs" class="form-check-input" type="checkbox" value="i10_i_gs" id="flexCheckChecked" checked>
+                                </td>
+                                <td>i10-Index GS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input  name="dok_wos" class="form-check-input" type="checkbox" value="dok_wos" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN WOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="sit_wos" class="form-check-input" type="checkbox" value="sit_wos" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SITASI WOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="dok_sit_wos" class="form-check-input" type="checkbox" value="dok_sit_wos" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN TERSITASI WOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="h_i_wos" class="form-check-input" type="checkbox" value="h_i_wos" id="flexCheckChecked" checked>
+                                </td>
+                                <td>H-Index WOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="g_i_wos" class="form-check-input" type="checkbox" value="g_i_wos" id="flexCheckChecked" checked>
+                                </td>
+                                <td>G-Index WOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="i10_i_wos" class="form-check-input" type="checkbox" value="i10_i_wos" id="flexCheckChecked" checked>
+                                </td>
+                                <td>i10-Index WOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="dok_garuda" class="form-check-input" type="checkbox" value="dok_garuda" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN GARUDA</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="sit_garuda" class="form-check-input" type="checkbox" value="sit_garuda" id="flexCheckChecked" checked>
+                                </td>
+                                <td>SITASI GARUDA</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="dok_sit_garuda" class="form-check-input" type="checkbox" value="dok_sit_garuda" id="flexCheckChecked" checked>
+                                </td>
+                                <td>DOKUMEN TERSITASI GARUDA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

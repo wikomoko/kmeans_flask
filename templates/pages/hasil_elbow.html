@@ -1,0 +1,22 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid card mt-3 p-4">
+        <h3 class="">Hasil Elbow</h3>
+        <p>
+            Mengetahui kualitas klaster terbaik dengan menggunakan metde elbow
+        </p>
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <img src="{{ url_for('static',filename='temp/'+gambar) }}" class="img-fluid" alt="" srcset="">
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

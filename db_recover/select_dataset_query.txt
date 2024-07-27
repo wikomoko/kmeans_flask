@@ -1,0 +1,1 @@
+'SELECT sinta_overall_v2,sinta_3y_v2,sinta_overall_v3,sinta_3y_v3,afiliasi_overall,afiliasi_3y,dok_scopus,sit_scopus,dok_sit_scopus,h_i_scopus,g_i_scopus,i10_i_scopus,dok_gs,sit_gs,dok_sit_gs,h_i_gs,g_i_gs,i10_i_gs,dok_wos,sit_wos,dok_sit_wos,h_i_wos,g_i_wos,i10_i_wos,dok_garuda,sit_garuda,dok_sit_garuda FROM dataset'

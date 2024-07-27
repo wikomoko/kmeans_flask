@@ -1,0 +1,22 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid card mt-3 p-4">
+        <h3 class="">Metode Elbow</h3>
+        <p>
+            Mengetahui kualitas klaster terbaik dengan menggunakan metde elbow
+        </p>
+        <hr>
+        <form action="{{ url_for('hitung_elbow') }}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="klasterss" class="form-label">Masukan jumlah Klaster</label>
+                <input type="number" class="form-control" name="klaster" id="klasters" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

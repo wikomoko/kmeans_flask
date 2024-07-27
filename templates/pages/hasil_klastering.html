@@ -1,0 +1,172 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid card mt-3 p-4">
+        <h3>Hasil Analisa dan Clustering</h3>
+        <div class="conainer mt-5">
+            <h6 class="text-center">Jumlah dan Jenis Cluster</h6>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container p-5">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                   <div class="container mt-5">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Cluster</th>
+                                <th>Jumlah</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id='table_cluster'>
+                        </tbody>
+                    </table>
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                <h5>Parameter yang digunakan</h5>
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <ol>
+                                    {% for i in param %}
+                                        <li>{{ i }}</li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5" id="hasil_per_cluster" style="display:none">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        <h6 class="text-center">Hasil dari Cluster <span id="cluster_ke"></span></h6>
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Dosen</th>
+                                    <th>Nidn</th>
+                                    <th>Masuk Klaster</th>
+                                </tr>
+                            </thead>
+                            <tbody id='data_per_cluster'>
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        getCluster();
+        let hasil;
+        function getCluster() {
+            $(document).ready(function() {
+                    // hasil = $(this).val();
+                    $.ajax({
+                        url: "{{ url_for('jumlah_klaster') }}",
+                        type: "GET",
+                        dataType: "json",
+                        // data: {
+                        //     name: name
+                        // },
+                        success: function(data) {
+                            // alert('Get Success');
+                            //  console.log(data);
+                            hasil = data;
+                            showCluster(data);
+                           
+                        },
+                        error: function(xhr,error){
+                            alert('error');
+                            console.log(xhr);
+                        }
+                });
+            });
+        }
+
+        function showCluster(data) {
+            const ctx = document.getElementById('myChart');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                     labels: data.label,
+                    //  labels: ['aman', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: 'Hasil Clustering',
+                        data: data.jumlah,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    // scales: {
+                    //     y: {
+                    //         beginAtZero: true
+                    //     }
+                    // }
+                }
+            });
+            const table_cluster = document.getElementById('table_cluster');
+            let innerTable = '';
+            for (let i = 0; i < data.label.length; i++) {
+                innerTable += "<tr>";
+                    innerTable += "<td>" + data.label[i] + "</td>" + "<td>" + data.jumlah[i] + "</td>"+ "<td>" + '<button type="button" class="btn btn-primary" onclick="showAnggotaCluster('+data.label[i]+')">Tampilkan</button>' + "</td>";
+                innerTable += "</tr>";
+            }
+            table_cluster.innerHTML = innerTable;   
+        }
+        function showAnggotaCluster(idnya){
+            $("#hasil_per_cluster").hide();
+            $(document).ready(function() {
+                    $.ajax({
+                        url: "/cek_per_cluster/"+idnya,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            const data_per_cluster = document.getElementById('data_per_cluster');
+                            let innerCluster = '';
+                            console.log(data.length);
+                             for (let m = 0; m < data.length; m++) {
+                                console.log(data[m]);
+                                innerCluster += "<tr>";
+                                    innerCluster += "<td>" + m + "</td>" + "<td>" + data[m][0] + "</td>" + "<td>" + data[m][1] + "</td>"+"<td>" + data[m][2] + "</td>";
+                                    innerCluster += "</tr>";
+                             }
+                            data_per_cluster.innerHTML = innerCluster;
+                            const cluster_ke = document.getElementById('cluster_ke');
+                            cluster_ke.innerHTML = idnya;
+                            $("#hasil_per_cluster").show();
+                        },
+                        error: function(xhr,error){
+                            alert('error');
+                            console.log(xhr);
+                        }
+                });
+            });
+        }
+    </script>
+{% endblock %}
