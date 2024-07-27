@@ -11,13 +11,13 @@ from sklearn.metrics import davies_bouldin_score
 
 app = Flask(__name__)
 
-app.secret_key = '1911500583'
+app.secret_key = 'admin'
 
 db = connection.connect(
     host="localhost",
     user="root",
     password="root",
-    database="kmeans_ta_flask"
+    database="klastering_siswa"
  )
 
 @app.route('/')
@@ -79,9 +79,9 @@ def home():
             next(baca_csv)
             for baris in baca_csv:
                 cursor = db.cursor()
-                sql = "INSERT INTO dataset (sintaid, nidn, nama, afiliasi, prodi, pendidikan, jabatan, gelar_depan, gelar_belakang, sinta_overall_v2, sinta_3y_v2, sinta_overall_v3, sinta_3y_v3, afiliasi_overall, afiliasi_3y, dok_scopus, sit_scopus, dok_sit_scopus, h_i_scopus, g_i_scopus, i10_i_scopus, dok_gs, sit_gs, dok_sit_gs, h_i_gs, g_i_gs, i10_i_gs, dok_wos, sit_wos, dok_sit_wos, h_i_wos, g_i_wos, i10_i_wos, dok_garuda, sit_garuda,dok_sit_garuda, stat_aktif, stat_verif) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO dataset (nis,nama_siswa, kelas, nilai_mtk, nilai_bindo, nilai_binggris, nilai_ipa, nilai_ips, nilai_total, rata_rata) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-                val = (baris[0],baris[1],baris[2],baris[3],baris[4],baris[5],baris[6],baris[7],baris[8],baris[9],baris[10],baris[11],baris[12],baris[13],baris[14],baris[15],baris[16],baris[17],baris[18],baris[19],baris[20],baris[21],baris[22],baris[23],baris[24],baris[25],baris[26],baris[27],baris[28],baris[29],baris[30],baris[31],baris[32],baris[33],baris[34],baris[35],baris[36],baris[37])
+                val = (baris[0],baris[1],baris[2],baris[3],baris[4],baris[5],baris[6],baris[7],baris[8],baris[9])
 
                 cursor.execute(sql, val)
                 db.commit()
@@ -101,7 +101,7 @@ def hitung_elbow():
     if request.method == 'POST':
         klaster = int(request.form['klaster'])
 
-        tarik_data = pd.read_sql('SELECT sinta_overall_v2,sinta_3y_v2,sinta_overall_v3,sinta_3y_v3,afiliasi_overall,afiliasi_3y,dok_scopus,sit_scopus,dok_sit_scopus,h_i_scopus,g_i_scopus,i10_i_scopus,dok_gs,sit_gs,dok_sit_gs,h_i_gs,g_i_gs,i10_i_gs,dok_wos,sit_wos,dok_sit_wos,h_i_wos,g_i_wos,i10_i_wos,dok_garuda,sit_garuda,dok_sit_garuda FROM dataset',db)
+        tarik_data = pd.read_sql('SELECT nilai_mtk, nilai_bindo, nilai_binggris, nilai_ipa, nilai_ips, nilai_total FROM dataset',db)
         db.commit()
         wcss = []
 
@@ -203,60 +203,20 @@ def instruksi():
         temp_sql = []
         sqlan = 'SELECT '
 
-        if request.form.get('sinta_overall_v2') :
-            temp_sql.append(request.form.get('sinta_overall_v2'))
-        if request.form.get('sinta_3y_v2') :
-             temp_sql.append(request.form.get('sinta_3y_v2'))
-        if request.form.get('sinta_overall_v3') :
-            temp_sql.append(request.form.get('sinta_overall_v3'))
-        if request.form.get('sinta_3y_v3') :
-            temp_sql.append(request.form.get('sinta_3y_v3'))
-        if request.form.get('afiliasi_overall') :
-            temp_sql.append(request.form.get('afiliasi_overall'))
-        if request.form.get('afiliasi_3y') :
-            temp_sql.append(request.form.get('afiliasi_3y'))
-        if request.form.get('dok_scopus') :
-            temp_sql.append(request.form.get('dok_scopus'))
-        if request.form.get('sit_scopus') :
-            temp_sql.append(request.form.get('sit_scopus'))
-        if request.form.get('dok_sit_scopus') :
-            temp_sql.append(request.form.get('dok_sit_scopus'))
-        if request.form.get('h_i_scopus') :
-            temp_sql.append(request.form.get('h_i_scopus'))
-        if request.form.get('g_i_scopus') :
-            temp_sql.append(request.form.get('g_i_scopus'))
-        if request.form.get('i10_i_scopus') :
-            temp_sql.append(request.form.get('i10_i_scopus'))
-        if request.form.get('dok_gs') :
-            temp_sql.append(request.form.get('dok_gs'))
-        if request.form.get('sit_gs') :
-            temp_sql.append(request.form.get('sit_gs'))
-        if request.form.get('dok_sit_gs') :
-            temp_sql.append(request.form.get('dok_sit_gs'))
-        if request.form.get('h_i_gs') :
-            temp_sql.append(request.form.get('h_i_gs'))
-        if request.form.get('g_i_gs') :
-            temp_sql.append(request.form.get('g_i_gs'))
-        if request.form.get('i10_i_gs') :
-            temp_sql.append(request.form.get('i10_i_gs'))
-        if request.form.get('dok_wos') :
-            temp_sql.append(request.form.get('dok_wos'))
-        if request.form.get('sit_wos') :
-            temp_sql.append(request.form.get('sit_wos'))
-        if request.form.get('dok_sit_wos') :
-            temp_sql.append(request.form.get('dok_sit_wos'))
-        if request.form.get('h_i_wos') :
-            temp_sql.append(request.form.get('h_i_wos'))
-        if request.form.get('g_i_wos') :
-            temp_sql.append(request.form.get('g_i_wos'))
-        if request.form.get('i10_i_wos') :
-            temp_sql.append(request.form.get('i10_i_wos'))
-        if request.form.get('dok_garuda') :
-            temp_sql.append(request.form.get('dok_garuda'))
-        if request.form.get('sit_garuda') :
-            temp_sql.append(request.form.get('sit_garuda'))
-        if request.form.get('dok_sit_garuda') :
-            temp_sql.append(request.form.get('dok_sit_garuda'))
+        if request.form.get('nilai_mtk') :
+            temp_sql.append(request.form.get('nilai_mtk'))
+        if request.form.get('nilai_bindo') :
+             temp_sql.append(request.form.get('nilai_bindo'))
+        if request.form.get('nilai_binggris') :
+            temp_sql.append(request.form.get('nilai_binggris'))
+        if request.form.get('nilai_ipa') :
+            temp_sql.append(request.form.get('nilai_ipa'))
+        if request.form.get('nilai_ips') :
+            temp_sql.append(request.form.get('nilai_ips'))
+        if request.form.get('nilai_total') :
+            temp_sql.append(request.form.get('nilai_total'))
+        if request.form.get('rata_rata') :
+            temp_sql.append(request.form.get('rata_rata'))
 
         batas = len(temp_sql)-1
         # print('batas : '+str(batas))
@@ -319,7 +279,7 @@ def jumlah_klaster():
 def cek_per_cluster(id):
     
     cursor = db.cursor(dictionary=False)
-    sql = f"SELECT nama,nidn,cluster FROM dataset WHERE cluster={id}"
+    sql = f"SELECT nama_siswa,nis,cluster FROM dataset WHERE cluster={id}"
     cursor.execute(sql)
     data = cursor.fetchall()
     db.commit()
